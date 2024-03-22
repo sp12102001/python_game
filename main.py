@@ -45,7 +45,30 @@ def adjust_difficulty_based_on_performance(total_score, total_computer_score, di
         difficulty_level = max(difficulty_level - 1, 1)  # Decrease difficulty
         print(f"{ANSI_FLASH}Adjusting difficulty. Keep trying!{ANSI_RESET}")
     return difficulty_level
+def display_final_result(total_score, total_computer_score):
+    player_wins_art = """
+\ \ / / _ \| | | | \ \      / /_ _| \ | | |
+ \ V / | | | | | |  \ \ /\ / / | ||  \| | |
+  | || |_| | |_| |   \ V  V /  | || |\  |_|
+  |_| \___/ \___/     \_/\_/  |___|_| \_(_)
+    """
 
+    computer_wins_art = """
+     ______    ___   ____    ____  _______  _____  _____  _________  ________  _______      ____      ____  _____  ____  _____   ______   
+   .' ___  | .'   `.|_   \  /   _||_   __ \|_   _||_   _||  _   _  ||_   __  ||_   __ \    |_  _|    |_  _||_   _||_   \|_   _|.' ____ \  
+  / .'   \_|/  .-.  \ |   \/   |    | |__) | | |    | |  |_/ | | \_|  | |_ \_|  | |__) |     \ \  /\  / /    | |    |   \ | |  | (___ \_| 
+  | |       | |   | | | |\  /| |    |  ___/  | '    ' |      | |      |  _| _   |  __ /       \ \/  \/ /     | |    | |\ \| |   _.____`.  
+  \ `.___.'\\  `-'  /_| |_\/_| |_  _| |_      \ \__/ /      _| |_    _| |__/ | _| |  \ \_      \  /\  /     _| |_  _| |_\   |_ | \____) | 
+   `.____ .' `.___.'|_____||_____||_____|      `.__.'      |_____|  |________||____| |___|      \/  \/     |_____||_____|\____| \______.' 
+    """
+
+    if total_score > total_computer_score:
+        print(player_wins_art)
+    elif total_score < total_computer_score:
+        print(computer_wins_art)
+    else:
+        print("It's a tie!")
+        
 def main():
     print(ANSI_CYAN + "Welcome to the Maths Quiz Game!" + ANSI_RESET)
     if input("Do you want to play the game? (y/n): ").lower() != 'y':
@@ -99,8 +122,10 @@ def main():
         difficulty_level = adjust_difficulty_based_on_performance(total_score, total_computer_score, difficulty_level)
 
         if input("Play another question? (y/n): ").lower() != 'y':
-            print(ANSI_CYAN + f"Game over! Your total score is {total_score}. Computer's total score is {total_computer_score}. Thank you for playing, {player_name}!" + ANSI_RESET)
-            break
+    display_final_result(total_score, total_computer_score)  # Display final result based on scores
+    print(ANSI_CYAN + f"Game over! Your total score is {total_score}. Computer's total score is {total_computer_score}. Thank you for playing, {player_name}!" + ANSI_RESET)
+    break
 
+        
 if __name__ == "__main__":
     main()
