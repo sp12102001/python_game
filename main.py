@@ -3,6 +3,8 @@ import time
 from math_question_generator import generate_math_question, increase_difficulty
 from scoring_system import calculate_score
 from configurator import choose_difficulty, choose_operations
+from ascii_art import get_art
+
 # ANSI escape codes for colors, styles, and flashing text
 ANSI_CYAN = '\033[96m'
 ANSI_GREEN = '\033[92m'
@@ -16,20 +18,7 @@ ANSI_WHITE_ON_BLUE = '\033[97;44m'
 ANSI_FLASH = '\033[5m'
 
 # ASCII art banner for the game start updated to "SANJANA MATH QUIZ"
-game_banner = """
- ███████╗ █████╗ ███╗   ██╗     ██╗ █████╗ ███╗   ██╗ █████╗ ███████╗    
- ██╔════╝██╔══██╗████╗  ██║     ██║██╔══██╗████╗  ██║██╔══██╗██╔════╝    
- ███████╗███████║██╔██╗ ██║     ██║███████║██╔██╗ ██║███████║███████╗    
- ╚════██║██╔══██║██║╚██╗██║██   ██║██╔══██║██║╚██╗██║██╔══██║╚════██║    
- ███████║██║  ██║██║ ╚████║╚█████╔╝██║  ██║██║ ╚████║██║  ██║███████║    
- ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝    
- ███╗   ███╗ █████╗ ████████╗██╗  ██╗     ██████╗ ██╗   ██╗██╗███████╗   
- ████╗ ████║██╔══██╗╚══██╔══╝██║  ██║    ██╔═══██╗██║   ██║██║╚══███╔╝   
- ██╔████╔██║███████║   ██║   ███████║    ██║   ██║██║   ██║██║  ███╔╝    
- ██║╚██╔╝██║██╔══██║   ██║   ██╔══██║    ██║▄▄ ██║██║   ██║██║ ███╔╝     
- ██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║    ╚██████╔╝╚██████╔╝██║███████╗   
- ╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝   
-"""
+game_banner = get_art("game_banner")
 print(ANSI_CYAN + game_banner + ANSI_RESET)
 
 def computer_play(difficulty_level):
@@ -48,39 +37,13 @@ def adjust_difficulty_based_on_performance(total_score, total_computer_score, di
     return difficulty_level
 
 def display_final_result(total_score, total_computer_score):
-    player_wins_art = """
- ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗
- ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║
-  ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║
-   ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║
-    ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║
-    ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝
-    """
-
-    computer_wins_art = """
-   ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗   ██╗████████╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗
-  ██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║   ██║╚══██╔══╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝
-  ██║     ██║   ██║██╔████╔██║██████╔╝██║   ██║   ██║   █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗
-  ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║   ██║   ██║   ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║
-  ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ╚██████╔╝   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║
-  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝   ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═══╝╚══════╝
-"""
-
-    tie_art = """
-  ██╗████████╗███████╗     █████╗     ████████╗██╗███████╗
-  ██║╚══██╔══╝██╔════╝    ██╔══██╗    ╚══██╔══╝██║██╔════╝
-  ██║   ██║   ███████╗    ███████║       ██║   ██║█████╗  
-  ██║   ██║   ╚════██║    ██╔══██║       ██║   ██║██╔══╝  
-  ██║   ██║   ███████║    ██║  ██║       ██║   ██║███████╗
-  ╚═╝   ╚═╝   ╚══════╝    ╚═╝  ╚═╝       ╚═╝   ╚═╝╚══════╝
-"""
-
     if total_score > total_computer_score:
-        print(player_wins_art)
+        st.success(get_art("player_wins"))
     elif total_score < total_computer_score:
-        print(computer_wins_art)
+        st.error(get_art("computer_wins"))
     else:
-        print(tie_art)
+        st.info(get_art("tie"))
+
 
 def main():
     print(ANSI_CYAN + "Welcome to the SP MATH QUIZ!" + ANSI_RESET)
