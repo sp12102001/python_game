@@ -6,28 +6,30 @@ from configurator import choose_difficulty, choose_operations
 
 # ANSI escape codes for colors, styles, and flashing text
 ANSI_CYAN = '\033[96m'
-ANSI_GREEN = '\033[92m'  # Green for correct answers by the human player
+ANSI_GREEN = '\033[92m'
 ANSI_YELLOW = '\033[93m'
-ANSI_MAGENTA = '\033[95m'  # Magenta for incorrect answers by the computer
-ANSI_RED = '\033[91m'  # Red for incorrect answers by the human player
-ANSI_BLUE = '\033[94m'  # Blue for correct answers by the computer
+ANSI_MAGENTA = '\033[95m'
+ANSI_RED = '\033[91m'
+ANSI_BLUE = '\033[94m'
 ANSI_RESET = '\033[0m'
 ANSI_BOLD = '\033[1m'
-ANSI_WHITE_ON_BLUE = '\033[97;44m'  # White text on blue background for the question
-ANSI_FLASH = '\033[5m'  # Flashing text ANSI code
+ANSI_WHITE_ON_BLUE = '\033[97;44m'
+ANSI_FLASH = '\033[5m'
 
-# ASCII art banner for the game start
-game_banner = r"""      
-    ____               _                   _      
-   / ___|  __ _ _ __  (_) __ _ _ __   __ _( )___  
-   \___ \ / _` | '_ \ | |/ _` | '_ \ / _` |// __| 
-    ___) | (_| | | | || | (_| | | | | (_| | \__ \ 
-   |____/ \__,_|_| |_|/ |\__,_|_| |_|\__,_| |___/ 
-    __  __       _  |__/      ___        _        
-   |  \/  | __ _| |_| |__    / _ \ _   _(_)____   
-   | |\/| |/ _` | __| '_ \  | | | | | | | |_  /   
-   | |  | | (_| | |_| | | | | |_| | |_| | |/ /    
-   |_|  |_|\__,_|\__|_| |_|  \__\_\\__,_|_/___|
+# ASCII art banner for the game start updated to "SANJANA MATH QUIZ"
+game_banner = """
+ ███████╗ █████╗ ███╗   ██╗     ██╗ █████╗ ███╗   ██╗ █████╗ ███████╗    
+ ██╔════╝██╔══██╗████╗  ██║     ██║██╔══██╗████╗  ██║██╔══██╗██╔════╝    
+ ███████╗███████║██╔██╗ ██║     ██║███████║██╔██╗ ██║███████║███████╗    
+ ╚════██║██╔══██║██║╚██╗██║██   ██║██╔══██║██║╚██╗██║██╔══██║╚════██║    
+ ███████║██║  ██║██║ ╚████║╚█████╔╝██║  ██║██║ ╚████║██║  ██║███████║    
+ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝    
+ ███╗   ███╗ █████╗ ████████╗██╗  ██╗     ██████╗ ██╗   ██╗██╗███████╗   
+ ████╗ ████║██╔══██╗╚══██╔══╝██║  ██║    ██╔═══██╗██║   ██║██║╚══███╔╝   
+ ██╔████╔██║███████║   ██║   ███████║    ██║   ██║██║   ██║██║  ███╔╝    
+ ██║╚██╔╝██║██╔══██║   ██║   ██╔══██║    ██║▄▄ ██║██║   ██║██║ ███╔╝     
+ ██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║    ╚██████╔╝╚██████╔╝██║███████╗   
+ ╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝   
 """
 print(ANSI_CYAN + game_banner + ANSI_RESET)
 
@@ -45,32 +47,44 @@ def adjust_difficulty_based_on_performance(total_score, total_computer_score, di
         difficulty_level = max(difficulty_level - 1, 1)  # Decrease difficulty
         print(f"{ANSI_FLASH}Adjusting difficulty. Keep trying!{ANSI_RESET}")
     return difficulty_level
+
 def display_final_result(total_score, total_computer_score):
     player_wins_art = """
-\ \ / / _ \| | | | \ \      / /_ _| \ | | |
- \ V / | | | | | |  \ \ /\ / / | ||  \| | |
-  | || |_| | |_| |   \ V  V /  | || |\  |_|
-  |_| \___/ \___/     \_/\_/  |___|_| \_(_)
+ ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗
+ ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║
+  ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║
+   ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║
+    ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║
+    ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝
     """
 
     computer_wins_art = """
-     ______    ___   ____    ____  _______  _____  _____  _________  ________  _______      ____      ____  _____  ____  _____   ______   
-   .' ___  | .'   `.|_   \  /   _||_   __ \|_   _||_   _||  _   _  ||_   __  ||_   __ \    |_  _|    |_  _||_   _||_   \|_   _|.' ____ \  
-  / .'   \_|/  .-.  \ |   \/   |    | |__) | | |    | |  |_/ | | \_|  | |_ \_|  | |__) |     \ \  /\  / /    | |    |   \ | |  | (___ \_| 
-  | |       | |   | | | |\  /| |    |  ___/  | '    ' |      | |      |  _| _   |  __ /       \ \/  \/ /     | |    | |\ \| |   _.____`.  
-  \ `.___.'\\  `-'  /_| |_\/_| |_  _| |_      \ \__/ /      _| |_    _| |__/ | _| |  \ \_      \  /\  /     _| |_  _| |_\   |_ | \____) | 
-   `.____ .' `.___.'|_____||_____||_____|      `.__.'      |_____|  |________||____| |___|      \/  \/     |_____||_____|\____| \______.' 
-    """
+   ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗   ██╗████████╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗
+  ██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║   ██║╚══██╔══╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝
+  ██║     ██║   ██║██╔████╔██║██████╔╝██║   ██║   ██║   █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗
+  ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║   ██║   ██║   ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║
+  ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ╚██████╔╝   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║
+  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝   ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═══╝╚══════╝
+"""
+
+    tie_art = """
+  ██╗████████╗███████╗     █████╗     ████████╗██╗███████╗
+  ██║╚══██╔══╝██╔════╝    ██╔══██╗    ╚══██╔══╝██║██╔════╝
+  ██║   ██║   ███████╗    ███████║       ██║   ██║█████╗  
+  ██║   ██║   ╚════██║    ██╔══██║       ██║   ██║██╔══╝  
+  ██║   ██║   ███████║    ██║  ██║       ██║   ██║███████╗
+  ╚═╝   ╚═╝   ╚══════╝    ╚═╝  ╚═╝       ╚═╝   ╚═╝╚══════╝
+"""
 
     if total_score > total_computer_score:
         print(player_wins_art)
     elif total_score < total_computer_score:
         print(computer_wins_art)
     else:
-        print("It's a tie!")
-        
+        print(tie_art)
+
 def main():
-    print(ANSI_CYAN + "Welcome to the Maths Quiz Game!" + ANSI_RESET)
+    print(ANSI_CYAN + "Welcome to the SP MATH QUIZ!" + ANSI_RESET)
     if input("Do you want to play the game? (y/n): ").lower() != 'y':
         print("Maybe next time!")
         return
@@ -122,10 +136,10 @@ def main():
         difficulty_level = adjust_difficulty_based_on_performance(total_score, total_computer_score, difficulty_level)
 
         if input("Play another question? (y/n): ").lower() != 'y':
-    display_final_result(total_score, total_computer_score)  # Display final result based on scores
-    print(ANSI_CYAN + f"Game over! Your total score is {total_score}. Computer's total score is {total_computer_score}. Thank you for playing, {player_name}!" + ANSI_RESET)
-    break
+            display_final_result(total_score, total_computer_score)
+            print(ANSI_CYAN + f"Game over! Your total score is {total_score}. Computer's total score is {total_computer_score}. Thank you for playing, {player_name}!" + ANSI_RESET)
+            break
 
-        
 if __name__ == "__main__":
     main()
+
