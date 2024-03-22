@@ -3,7 +3,6 @@ import time
 from math_question_generator import generate_math_question, increase_difficulty
 from scoring_system import calculate_score
 from configurator import choose_difficulty, choose_operations
-
 # ANSI escape codes for colors, styles, and flashing text
 ANSI_CYAN = '\033[96m'
 ANSI_GREEN = '\033[92m'
