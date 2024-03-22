@@ -65,5 +65,3 @@ To make the game visually engaging, ANSI escape codes are used throughout the co
 Execute the `main()` function to start the game. Follow the prompts to configure your game settings and begin the challenge. Answer as many questions as you can, as accurately and quickly as possible, to score higher than the computer.
 
 ### Conclusion
-
-The Maths Quiz Game is designed to be an engaging way to practice and improve mathematical skills. With its customizable difficulty and operation types, it caters to learners at various levels, providing a challenging yet fun experience. Dive in and test your math prowess against the computer today!
