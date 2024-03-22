@@ -5,6 +5,7 @@ from scoring_system import calculate_score
 from configurator import choose_difficulty, choose_operations
 from ascii_art import get_art
 
+
 # ANSI escape codes for colors, styles, and flashing text
 ANSI_CYAN = '\033[96m'
 ANSI_GREEN = '\033[92m'
@@ -38,11 +39,11 @@ def adjust_difficulty_based_on_performance(total_score, total_computer_score, di
 
 def display_final_result(total_score, total_computer_score):
     if total_score > total_computer_score:
-        st.success(get_art("player_wins"))
+        print(ANSI_GREEN + get_art("player_wins") + ANSI_RESET)
     elif total_score < total_computer_score:
-        st.error(get_art("computer_wins"))
+        print(ANSI_RED + get_art("computer_wins") + ANSI_RESET)
     else:
-        st.info(get_art("tie"))
+        print(ANSI_YELLOW + get_art("tie") + ANSI_RESET)
 
 
 def main():
